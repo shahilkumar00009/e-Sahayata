@@ -1,0 +1,26 @@
+{
+  "name": "civic-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "json-server --watch db.json --port 10000"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "json-server": "^0.17.3",
+    "pg": "^8.16.3"
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshishCoder0214/CodingFutures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AshishCoder0214/CodingFutures/issues"
+  },
+  "homepage": "https://github.com/AshishCoder0214/CodingFutures#readme"
+}

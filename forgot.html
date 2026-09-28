@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forgot Access - Civic Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="background-overlay"></div>
+
+  <div class="login-shell">
+    <div class="card">
+      <h1 class="title">Forgot access</h1>
+      <p class="subtitle">
+        Enter your registered email address and we'll guide you with next steps.
+      </p>
+
+      <form id="forgotForm">
+        <div class="form-group">
+          <label for="forgotEmail">Registered email</label>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              id="forgotEmail"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          Send reset instructions
+          <span></span>
+        </button>
+
+        <p class="footer-note" id="forgotMessage" style="display:none; margin-top:0.8rem;">
+          If this email exists in our records, you'll receive instructions shortly.
+        </p>
+
+        <p class="footer-note" style="margin-top:1.2rem;">
+          Remembered your details?
+          <a href="index.html">Back to login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const supabaseUrl = "https://YOUR_PROJECT.supabase.co"; // TODO: replace with your Supabase project URL
+    const supabaseKey = "YOUR_PUBLIC_ANON_KEY";            // TODO: replace with your public anon key
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    document.getElementById('forgotForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const email = document.getElementById('forgotEmail').value.trim();
+      if(!email){ return; }
+
+      const msg = document.getElementById('forgotMessage');
+      msg.style.display = 'none';
+
+      try {
+        const redirectUrl = window.location.origin + '/reset-password.html';
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+          redirectTo: redirectUrl
+        });
+
+        if (error) {
+          alert('Could not send reset email. Please try again later.');
+          console.error(error);
+          return;
+        }
+
+        msg.style.display = 'block';
+      } catch (err) {
+        console.error(err);
+        alert('Unexpected error. Please try again later.');
+      }
+    });
+  </script>
+</body>
+</html>

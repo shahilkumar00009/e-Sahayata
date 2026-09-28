@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Console – Civic Portal</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">Admin Console</div>
+      <div class="actions">
+        <button id="exportUsers" class="ghost">Export Users</button>
+        <button id="exportAssignments" class="ghost">Export Assignments</button>
+        <button id="logoutBtn" class="ghost">Logout</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button id="tabReports" class="active">Reports</button>
+      <button id="tabUsers">Users</button>
+      <button id="tabSubadmins">Sub-admins</button>
+    </div>
+
+    <section id="reportsSec" class="grid">
+      <div class="card">
+        <div class="row">
+          <div>
+            <label>Category</label>
+            <select id="filterCategory">
+              <option value="">All</option>
+              <option>Infrastructure</option>
+              <option>Public Safety</option>
+              <option>Health</option>
+              <option>Environment</option>
+              <option>Traffic</option>
+              <option>Sanitation</option>
+              <option>Water</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Status</label>
+            <select id="filterStatus">
+              <option value="">Any</option>
+              <option value="pending">Pending</option>
+              <option value="resolved">Resolved</option>
+            </select>
+          </div>
+          <div>
+            <label>Assignment</label>
+            <select id="filterAssignee">
+              <option value="">Any</option>
+              <option value="unassigned">Unassigned</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="reportsList" class="list"></div>
+    </section>
+
+    <section id="usersSec" class="grid hidden">
+      <div class="card">
+        <h3 style="margin-bottom:8px">All Users</h3>
+        <div id="usersList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="subsSec" class="grid hidden">
+      <div class="card">
+        <h3 style="margin-bottom:8px">Create sub-admin</h3>
+        <div class="cols">
+          <div>
+            <label for="subName">Name</label>
+            <input id="subName" type="text" placeholder="Full name" />
+          </div>
+          <div>
+            <label for="subEmail">Email (login)</label>
+            <input id="subEmail" type="email" placeholder="subadmin@example.com" />
+          </div>
+          <div>
+            <label for="subPass">Password</label>
+            <input id="subPass" type="password" placeholder="Password" />
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <label>Categories</label>
+          <div id="catChecks" style="display:flex;flex-wrap:wrap;gap:10px"></div>
+        </div>
+        <div style="margin-top:10px" class="actions">
+          <button id="createSub">Create sub-admin</button>
+          <span id="createMsg" class="success hidden">Created</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:8px">Sub-admins</h3>
+        <div id="subsList" class="list"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

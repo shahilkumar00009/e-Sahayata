@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Civic Portal – Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="background-overlay"></div>
+
+  <div class="login-shell">
+    <div class="card">
+      <div class="header-container">
+        <div class="logo">
+          <img src="WhatsApp Image 2025-11-18 at 16.11.53_871cb654.jpg" alt="Civic Portal Logo" />
+        </div>
+        <h2 class="logo-title">e-सहायता </h2>
+      </div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        e-सहायता
+      </div>
+
+      <h1 class="title">Sign in to report or resolve</h1>
+      <p class="subtitle">
+        A privacy-first platform where <span>citizens</span> and <span>officials</span> collaborate on urban issues with
+        AI-assisted prioritization.
+      </p>
+
+      <!-- Role selector -->
+      <div class="segment" id="roleToggle">
+        <button type="button" data-role="citizen" class="active">
+          Citizen
+          <span class="small">Report city issues</span>
+        </button>
+        <button type="button" data-role="official">
+          Government / Official
+          <span class="small">Manage and resolve</span>
+        </button>
+      </div>
+
+      <form id="loginForm">
+        <!-- Role (hidden technical value) -->
+        <input type="hidden" name="role" id="roleInput" value="citizen" />
+
+        <div id="credentialFields">
+          <div class="form-group">
+            <label for="identifier">Email or mobile number</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="identifier"
+                name="identifier"
+                placeholder="you@example.com / +91-98765XXXXX"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password / secure passphrase</label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+              <button type="button" class="toggle-password" data-target="password">👁</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City / municipality</label>
+          <div class="input-wrapper">
+            <select id="city" name="city">
+              <option value="">Select your city (optional)</option>
+              <option value="demo-city-1">Demo City – Ward 1</option>
+              <option value="demo-city-2">Demo City – Ward 2</option>
+              <option value="other">Other / Not listed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="helper-row">
+          <label class="remember">
+            <input type="checkbox" name="remember" />
+            Remember this device
+          </label>
+          <a class="link" href="forgot.html">Forgot access?</a>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          Continue
+          <span>→</span>
+        </button>
+
+        <button type="button" class="btn-secondary" id="anonymousBtn">
+          <span class="icon">🛡️</span>
+          Continue as anonymous citizen
+        </button>
+
+        <p class="footer-note">
+          New user?
+          <a href="register.html">Create an account</a>
+        </p>
+
+        <p class="disclaimer">
+          We use <span>privacy-preserving IDs</span> and store reports on a <span>tamper-resistant ledger</span>.
+          <strong>Your personal identity is never shown on public issue feeds.</strong>
+        </p>
+      </form>
+
+      <p class="footer-note">
+        Backed by <span>decentralized storage</span> & AI-driven prioritization of incidents.
+      </p>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabaseUrl = "https://YOUR_PROJECT.supabase.co";
+  const supabaseKey = "YOUR_PUBLIC_ANON_KEY";
+
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+
+  <script>
+    // Re-trigger logo title typing animation every 5 seconds
+    (function() {
+      var title = document.querySelector('.logo-title');
+      if (!title) return;
+
+      function triggerTyping() {
+        title.classList.remove('animate');
+        // Force reflow so the browser restarts the animation
+        void title.offsetWidth;
+        title.classList.add('animate');
+      }
+
+      // Initial run
+      triggerTyping();
+
+      // Repeat every 5 seconds
+      setInterval(triggerTyping, 5000);
+    })();
+
+    document.querySelectorAll('.toggle-password').forEach(function(btn){
+      var targetId = btn.getAttribute('data-target');
+      var input = document.getElementById(targetId);
+      if (!input) return;
+      var originalType = input.getAttribute('type') || 'password';
+
+      function showPassword(){
+        input.type = 'text';
+        btn.textContent = '🙈';
+      }
+
+      function hidePassword(){
+        input.type = originalType;
+        btn.textContent = '👁';
+      }
+
+      btn.addEventListener('mousedown', function(e){ e.preventDefault(); showPassword(); });
+      btn.addEventListener('touchstart', function(e){ e.preventDefault(); showPassword(); });
+      ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(ev){
+        btn.addEventListener(ev, function(){ hidePassword(); });
+      });
+    });
+  </script>
+</body>
+</html>
